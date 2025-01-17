@@ -1,23 +1,25 @@
 from django.db import models
 
+
 class Contact(models.Model):
-    name = models.CharField(max_length=30)
+    id = models.IntegerField(primary_key=True, unique=True)
+    name = models.CharField(max_length=100)
     email = models.EmailField()
-    subject = models.CharField(max_length=20)
-    message = models.TextField(max_length=40)
-    
+    subject = models.CharField(max_length=200, null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name
     
-# class Project(models.Model):
-#     name = models.CharField(max_length=100, help_text="Enter the name of the project")
-#     description = models.TextField(help_text="Enter a brief description of the project")
-#     link = models.URLField(max_length=200, help_text="Enter the project URL")
-#     image = models.ImageField(upload_to='project_images/', blank=True, null=True, help_text="Upload an image for the project")
-#     technologies = models.CharField(max_length=200, help_text="Enter technologies used, separated by commas")
-#     date_created = models.DateField(auto_now_add=True, help_text="The date when the project was created")
-#     last_updated = models.DateField(auto_now=True, help_text="The date when the project was last updated")
-#     author = models.CharField(max_length=100, help_text="Enter the name of the author or team")
+class Project(models.Model):
+    id = models.IntegerField(primary_key=True, unique=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    link = models.URLField(max_length=200, null=True, blank=True)
+    image = models.ImageField(upload_to='project_images/', blank=True, null=True)
+    technologies = models.CharField(max_length=200, null=True, blank=True)
+    date_created = models.DateField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
